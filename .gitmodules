@@ -1,0 +1,12 @@
+[submodule "II/II_Lab/Homework1"]
+	path = II/II_Lab/Homework1
+	url = https://github.com/rares478/Nokia-3310
+[submodule "II/II_Project"]
+	path = II/II_Project
+	url = https://github.com/rares478/RPRAuto
+[submodule "Matlab"]
+	path = Matlab
+	url = https://github.com/rares478/Matlab
+[submodule "RTS_Lab-Szakacs-Rares-30323"]
+	path = RTS_Lab-Szakacs-Rares-30323
+	url = https://github.com/RTS-Lab-2024-2025/RTS_Lab-Szakacs-Rares-30323

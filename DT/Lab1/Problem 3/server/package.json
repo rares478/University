@@ -1,0 +1,10 @@
+{
+  "name": "chat-server",
+  "version": "0.0.1",
+  "dependencies": {
+  },
+    "devDependencies": {
+        "@types/node": "^20.4.3",
+      "socket.io": "^4.8.1"
+    }
+}
