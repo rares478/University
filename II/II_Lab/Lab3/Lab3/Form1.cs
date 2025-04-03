@@ -104,5 +104,41 @@ namespace Lab3
                 }
             }
         }
+
+        private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                if (row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null)
+                {
+                    int id = Convert.ToInt32(row.Cells[0].Value);
+                    int code = Convert.ToInt32(row.Cells[1].Value);
+                    string nameFac = row.Cells[2].Value.ToString();
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string query = @"
+                MERGE INTO Facultati AS target
+                USING (SELECT @Id AS Id, @Code AS Code, @NameFac AS NameFac) AS source
+                ON target.Code = source.Code
+                WHEN MATCHED THEN
+                    UPDATE SET target.NameFac = source.NameFac
+                WHEN NOT MATCHED THEN
+                    INSERT (Id, Code, NameFac) VALUES (source.Id, source.Code, source.NameFac);";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@Id", id);
+                            command.Parameters.AddWithValue("@Code", code);
+                            command.Parameters.AddWithValue("@NameFac", nameFac);
+
+                            connection.Open();
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

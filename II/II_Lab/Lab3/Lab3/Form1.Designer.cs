@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.database1DataSet = new Lab3.Database1DataSet();
-            this.facultatiBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.facultatiTableAdapter = new Lab3.Database1DataSetTableAdapters.FacultatiTableAdapter();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameFacDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facultatiBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.database1DataSet = new Lab3.Database1DataSet();
+            this.facultatiTableAdapter = new Lab3.Database1DataSetTableAdapters.FacultatiTableAdapter();
             this.tbCity = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,8 +50,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btDeleteFaculta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.facultatiBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -70,20 +70,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(645, 211);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // database1DataSet
-            // 
-            this.database1DataSet.DataSetName = "Database1DataSet";
-            this.database1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // facultatiBindingSource
-            // 
-            this.facultatiBindingSource.DataMember = "Facultati";
-            this.facultatiBindingSource.DataSource = this.database1DataSet;
-            // 
-            // facultatiTableAdapter
-            // 
-            this.facultatiTableAdapter.ClearBeforeFill = true;
+            this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -102,6 +89,20 @@
             this.nameFacDataGridViewTextBoxColumn.DataPropertyName = "NameFac";
             this.nameFacDataGridViewTextBoxColumn.HeaderText = "NameFac";
             this.nameFacDataGridViewTextBoxColumn.Name = "nameFacDataGridViewTextBoxColumn";
+            // 
+            // facultatiBindingSource
+            // 
+            this.facultatiBindingSource.DataMember = "Facultati";
+            this.facultatiBindingSource.DataSource = this.database1DataSet;
+            // 
+            // database1DataSet
+            // 
+            this.database1DataSet.DataSetName = "Database1DataSet";
+            this.database1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // facultatiTableAdapter
+            // 
+            this.facultatiTableAdapter.ClearBeforeFill = true;
             // 
             // tbCity
             // 
@@ -243,8 +244,8 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.facultatiBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
