@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab3
@@ -22,7 +15,6 @@ namespace Lab3
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'database1DataSet.Facultati' table. You can move, or remove it, as needed.
             this.facultatiTableAdapter.Fill(this.database1DataSet.Facultati);
 
         }
