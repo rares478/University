@@ -133,44 +133,49 @@ export function getDifferentialManchesterEncoding(bits) {
 
 export function getHDB3Encoding(bits) {
     let result = [];
-    let consecutiveZeros = 0;
-    let lastPolarity = 1;
-    let polarityViolations = 0;
+    let zeroBuffer = [];
+    let lastPolarity = 1; // Start with positive
+    let pulseCount = 0;
 
     for (let i = 0; i < bits.length; i++) {
         const bit = parseInt(bits[i].value);
 
         if (bit === 1) {
-            if (lastPolarity === 1) {
-                result.push('|/¯¯¯\\|');
-                lastPolarity = -1;
-            } else {
-                result.push('|\\___/|');
-                lastPolarity = 1;
-            }
-            polarityViolations++;
-            consecutiveZeros = 0;
-        } else { // bit === 0
-            consecutiveZeros++;
+            const pulse = (lastPolarity === 1) ? '|/¯¯¯\\|' : '|\\___/|';
+            result.push(pulse);
+            lastPolarity *= -1;
+            pulseCount++;
+            zeroBuffer = [];
+        } else {
+            zeroBuffer.push(result.length);
+            result.push('|_____|');
 
-            if (consecutiveZeros === 4) {
-                result[result.length - 3] = (polarityViolations % 2 === 0) ?
-                    (lastPolarity === 1 ? '|/¯¯¯\\|' : '|\\___/|') : // B (Bipolar)
-                    '|_____|'; // 0
+            if (zeroBuffer.length === 4) {
+                if (pulseCount % 2 === 0) {
+                    // Use B00V
+                    const Bpulse = (lastPolarity === 1) ? '|/¯¯¯\\|' : '|\\___/|';
+                    result[zeroBuffer[0]] = Bpulse;
+                    result[zeroBuffer[3]] = Bpulse;
+                    pulseCount += 2;
+                    lastPolarity *= -1;
 
-                const violation = (lastPolarity === 1) ? '|/¯¯¯\\|' : '|\\___/|';
-                result.push(violation);
+                } else {
+                    // Use 000V
+                    const Vpulse = (lastPolarity === 1) ? '|/¯¯¯\\|' : '|\\___/|';
+                    result[zeroBuffer[3]] = Vpulse;
+                    pulseCount += 1;
+                    lastPolarity *= -1;
 
-                polarityViolations += (result[result.length - 3] !== '|_____|' ? 1 : 0) + 1;
-                lastPolarity = lastPolarity; // Violation doesn't change polarity
-                consecutiveZeros = 0;
-            } else {
-                result.push('|_____|');
+                }
+
+                zeroBuffer = [];
             }
         }
     }
+
     return result;
 }
+
 
 export function getB8ZSEncoding(bits) {
     let result = [];
@@ -215,6 +220,47 @@ export function getB8ZSEncoding(bits) {
                 result.push('|_____|');
             }
         }
+    }
+    return result;
+}
+
+export function getNRZLEncoding(bits) {
+    let result = [];
+    for (let i = 0; i < bits.length; i++) {
+        const bit = parseInt(bits[i].value);
+        if (bit === 1) {
+            result.push('|¯¯¯¯¯|'); // High level for 1
+        } else {
+            result.push('|_____|'); // Low level for 0
+        }
+    }
+    return result;
+}
+
+export function getNRZMEncoding(bits) {
+    let result = [];
+    let currentLevel = false; // Start with low level
+
+    for (let i = 0; i < bits.length; i++) {
+        const bit = parseInt(bits[i].value);
+        if (bit === 1) {
+            currentLevel = !currentLevel; // Toggle level for 1
+        }
+        result.push(currentLevel ? '|¯¯¯¯¯|' : '|_____|');
+    }
+    return result;
+}
+
+export function getNRZSEncoding(bits) {
+    let result = [];
+    let currentLevel = false; // Start with low level
+
+    for (let i = 0; i < bits.length; i++) {
+        const bit = parseInt(bits[i].value);
+        if (bit === 0) {
+            currentLevel = !currentLevel; // Toggle level for 0
+        }
+        result.push(currentLevel ? '|¯¯¯¯¯|' : '|_____|');
     }
     return result;
 }

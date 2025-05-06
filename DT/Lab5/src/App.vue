@@ -7,7 +7,10 @@ import {
   get4B5BNRZIEncoding,
   getDifferentialManchesterEncoding,
   getHDB3Encoding,
-  getB8ZSEncoding
+  getB8ZSEncoding,
+  getNRZSEncoding,
+  getNRZLEncoding,
+  getNRZMEncoding
 } from './baseband-codes.js';
 
 const bits = ref([]);
@@ -67,6 +70,15 @@ const encode = () => {
     case '4b5bnrzi':
       encodedBits.value = get4B5BNRZIEncoding(bits.value);
       break;
+    case 'nrzs':
+      encodedBits.value = getNRZSEncoding(bits.value);
+      break;
+    case 'nrzl':
+      encodedBits.value = getNRZLEncoding(bits.value);
+      break;
+    case 'nrzm':
+      encodedBits.value = getNRZMEncoding(bits.value);
+      break;
     default:
       encodedBits.value = getManchesterLevelEncoding(bits.value);
   }
@@ -106,6 +118,9 @@ onMounted(() => {
             <option value="b8zs">B8ZS</option>
             <option value="mlt3">MLT-3</option>
             <option value="4b5bnrzi">4B/5B NRZI</option>
+            <option value="nrzs">NRZ-S</option>
+            <option value="nrzl">NRZ-L</option>
+            <option value="nrzm">NRZ-M</option>
           </select>
         </div>
 
