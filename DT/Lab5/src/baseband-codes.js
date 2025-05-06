@@ -4,7 +4,7 @@ export function getManchesterLevelEncoding(bits) {
         let symbol = '|--|--|';
         if (parseInt(bits[i].value) === 1) symbol = '|__|--|';
         if (parseInt(bits[i].value) === 1 && i > 0 &&
-            parseInt(bits[i- 1].value) === 1) symbol = '|__ |--|';
+            parseInt(bits[i- 1].value) === 1) symbol = '|__|--|';
         if (parseInt(bits[i].value) === 0) symbol = '|--|__|';
         if (parseInt(bits[i].value) === 0 && i > 0 &&
             parseInt(bits[i- 1].value) === 0) symbol = '|--|__|';
